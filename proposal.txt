@@ -1,0 +1,11 @@
+NAME XX
+
+GOAL
+The goal of XX is to read wikipedia websites (downloaded into a directory) about historical events and plot on a map where and when these events took place.
+
+FEATURES
+Read WIKI html files and retrieve relevent information (Title, description, location, date, etc.) by creating wiki objects and store them as instance variables.
+Use the location to find the coords either by using a central database of locations or by going to a wiki file for the location and retriving the coords from there.
+A button that will increment the date and sort wiki objects and only plot events that took place in the year that the user selects.  
+Plot the coords on a map of the world if the date the event took places matches with the date the user selected.
+When the user clicks on the plotted coord it will display relevent information (Title, description, location, date, etc.) in the GUI.
