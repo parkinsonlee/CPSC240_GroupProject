@@ -8,4 +8,4 @@ Read WIKI html files and retrieve relevant information (Title, description, loca
 Use the location to find the coordinates either by using a central database of locations or by going to a wiki file for the location and retrieving the coordinates from there.
 A button that will increment the date and sort wiki objects and only plot events that took place in the year that the user selects.  
 Plot the coordinates on a map of the world if the date the event took places matches with the date the user selected.
-When the user clicks on the plotted coordinate it will display relevant information (Title, description, location, date, etc.) in the GUI.
+When the user clicks on the plotted coordinate it will display relevant information (Title, description, location, date, Etc.) in the GUI.
