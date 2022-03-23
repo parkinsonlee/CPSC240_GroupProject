@@ -1,7 +1,7 @@
 NAME WikiPlots
 
 GOAL
-The goal of WikiPlots is to read wikipedia websites (downloaded into a directory) about historical events and plot on a map where and when these events took place.
+The goal of WikiPlots is to read wikipedia websites (downloaded into a directory) about historical events and plot on a map where and when these events took place. The user will be able to select a specific year and the program will only plot events that took place on the year the user selected.
 
 FEATURES
 Read WIKI html files and retrieve relevant information (Title, description, location, date, etc.) by creating wiki objects and store the information as instance variables.
