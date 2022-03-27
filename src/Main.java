@@ -11,7 +11,7 @@ public class Main {
     static ArrayList<Wiki> wikis = new ArrayList<>();
 
     public static void main(String[] args) {
-        //lines 15-47 read files in wiki directory and retrieve relevant information
+        //lines 15-48 read files in wiki directory and retrieve relevant information
         File deckdir = new File("wikis/");
         deckdir.mkdir();
         File[] files = deckdir.listFiles();
@@ -28,6 +28,7 @@ public class Main {
                 while (in.hasNext()) {
                     try {
                         while (in.hasNext()) {
+                            //probably should read whole fill as string as should have following read from this string instead of reading the file everytime
                             String title = null;//write method to find title
                             String description = null;//write method to find description
                             String location = null;//write method to find location
