@@ -1,0 +1,14 @@
+skinparam classAttributeIconSize 0
+class Wiki {
+-title: String
+-date: Date
+-location: String
+-description: String
+--
+}
+class Main {
+{static}-Wikis: Arraylist<String>
+--
+{static} +addWiki(): void
+}
+Main --> Wiki
