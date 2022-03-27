@@ -1,4 +1,5 @@
 package src;
+import javax.swing.*;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -46,5 +47,20 @@ public class Main {
                 }
             }
         }
+
+        JFrame frame = new JFrame("Wiki Plots");
+
+        // make the program close when the window closes
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+        // create the box layout
+        frame.getContentPane().setLayout(new BoxLayout(frame.getContentPane(), BoxLayout.Y_AXIS));
+
+        // display the window.
+        frame.pack();
+        frame.setVisible(true);
+
+
+
     }
 }
