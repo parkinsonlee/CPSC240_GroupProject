@@ -3,6 +3,7 @@ import javax.swing.*;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.nio.file.Files;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.InputMismatchException;
@@ -26,20 +27,18 @@ public class Main {
                     return;
                 }
                 Scanner in = new Scanner(reader);
+                String content = "";
                 while (in.hasNext()) {
                     try {
                         while (in.hasNext()) {
-                            //probably should read whole fill as string as should have following read from this string instead of reading the file everytime
+                            content += (in.nextLine());
                             String title = null;//write method to find title
                             String description = null;//write method to find description
                             String location = null;//write method to find location
                             LocalDate date = null;//write method to find date
                             Wiki w = new Wiki(title, description, location, date);
                             wikis.add(w);
-                            try {
-                                in.nextLine();
-                            } catch (Exception ignore) {
-                            }
+                            System.out.println(content);
                         }
                     } catch (InputMismatchException e) {
                         in.next();
@@ -59,6 +58,11 @@ public class Main {
         // display the window.
         frame.pack();
         frame.setVisible(true);
+
+
+
+
+
 
 
 
