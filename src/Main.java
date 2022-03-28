@@ -32,17 +32,21 @@ public class Main {
                     try {
                         while (in.hasNext()) {
                             content += (in.nextLine());
-                            String title = null;//write method to find title
-                            String description = null;//write method to find description
-                            String location = null;//write method to find location
-                            LocalDate date = null;//write method to find date
-                            Wiki w = new Wiki(title, description, location, date);
-                            wikis.add(w);
-                            System.out.println(content);
                         }
                     } catch (InputMismatchException e) {
                         in.next();
                     }
+                    String s1 = content.substring(content.indexOf("<title>"));
+                    s1 = s1.split(" - Wikipedia</title>")[0];
+                    s1 = s1.replace("<title>", "");
+                    String title = s1;//write method to find title
+                    String description = null;//write method to find description
+                    String location = null;//write method to find location
+                    LocalDate date = null;//write method to find date
+                    Wiki w = new Wiki(title, description, location, date);
+                    wikis.add(w);
+                    //System.out.println(content);
+                    System.out.println(title);
                 }
             }
         }
