@@ -3,7 +3,6 @@ import javax.swing.*;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
-import java.nio.file.Files;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.InputMismatchException;
@@ -36,10 +35,11 @@ public class Main {
                     } catch (InputMismatchException e) {
                         in.next();
                     }
-                    String s1 = content.substring(content.indexOf("<title>"));
-                    s1 = s1.split(" - Wikipedia</title>")[0];
-                    s1 = s1.replace("<title>", "");
-                    String title = s1;//write method to find title
+                    //get title
+                    String title = content.substring(content.indexOf("<title>"));
+                    title = title.split(" - Wikipedia</title>")[0];
+                    title = title.replace("<title>", "");
+
                     String description = null;//write method to find description
                     String location = null;//write method to find location
                     LocalDate date = null;//write method to find date
