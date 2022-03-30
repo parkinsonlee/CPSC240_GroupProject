@@ -43,13 +43,17 @@ public class Main {
                     String infobox = content.substring(content.indexOf("<table class=\"infobox vevent\""));
                     infobox = infobox.split("</tbody></table>")[0];
                     infobox = infobox.replace("<table class=\"infobox vevent\"", "");
+
+                    String location = infobox.substring(infobox.indexOf("</th><td class=\"infobox-data location\">"));
+                    location = location.split("<th scope=\"row\" class=\"infobox-label\">")[0];
+                    location = location.replace("</th><td class=\"infobox-data location\">", "");
+
                     String description = null;//write method to find location
-                    String location = null;//write method to find location
                     LocalDate date = null;//write method to find date
                     Wiki w = new Wiki(title, description, location, date);
                     wikis.add(w);
-                    //System.out.println(content);
                     System.out.println(title);
+                    System.out.println(location);
                 }
             }
         }
