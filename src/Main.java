@@ -40,7 +40,10 @@ public class Main {
                     title = title.split(" - Wikipedia</title>")[0];
                     title = title.replace("<title>", "");
 
-                    String description = null;//write method to find description
+                    String infobox = content.substring(content.indexOf("<table class=\"infobox vevent\""));
+                    infobox = infobox.split("</tbody></table>")[0];
+                    infobox = infobox.replace("<table class=\"infobox vevent\"", "");
+                    String description = null;//write method to find location
                     String location = null;//write method to find location
                     LocalDate date = null;//write method to find date
                     Wiki w = new Wiki(title, description, location, date);
