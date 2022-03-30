@@ -50,7 +50,7 @@ public class Main {
                     infobox = infobox.replace("<table class=\"infobox vevent\"", "");
 
                     //get location
-                    String location = infobox.substring(infobox.indexOf("</th><td class=\"infobox-data location\">"));
+                    String location = infobox.substring(infobox.indexOf("</th><td class=\"infobox-data location"));
                     location = location.split("<th scope=\"row\" class=\"infobox-label\">")[0];
                     location = location.replace("</th><td class=\"infobox-data location\">", "");
                     location = location.replaceAll("(<sup)(.*?)(</sup>)","$1$3");
@@ -58,13 +58,30 @@ public class Main {
                     location = location.replaceAll("(<)(.*?)(>)","$1$3");
                     location = location.replace("<>", "");
 
-                    LocalDate date = null;//write method to find date
+                    //get date
+                    String date;
+                    LocalDate localdate = null;
+                    try {
+                        date = infobox.substring(infobox.indexOf("class=\"infobox-label\">Date"));
+                        date = date.split("<th scope=\"row\" class=\"infobox-label\">")[0];
+                        date = date.replace("class=\"infobox-label\">Date", "");
+                        date = date.replaceAll("(<sup)(.*?)(</sup>)", "$1$3");
+                        date = date.replace("<sup</sup>", "");
+                        date = date.replaceAll("(<)(.*?)(>)", "$1$3");
+                        date = date.replace("<>", "");
+                        date = date.split("\\(")[1];
+                        date = date.split("\\)")[0];
+                        localdate = LocalDate.parse(date);
+                    } catch (Exception e) {
+                        date = null;
+                    }
 
-                    Wiki w = new Wiki(title, description, location, date);
+                    Wiki w = new Wiki(title, description, location, localdate);
                     wikis.add(w);
 
                     System.out.println(title);
                     System.out.println(location);
+                    System.out.println(date);
                     System.out.println();
                 }
             }
