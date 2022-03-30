@@ -47,6 +47,10 @@ public class Main {
                     String location = infobox.substring(infobox.indexOf("</th><td class=\"infobox-data location\">"));
                     location = location.split("<th scope=\"row\" class=\"infobox-label\">")[0];
                     location = location.replace("</th><td class=\"infobox-data location\">", "");
+                    location = location.replaceAll("(<sup)(.*?)(</sup>)","$1$3");
+                    location = location.replace("<sup</sup>", "");
+                    location = location.replaceAll("(<)(.*?)(>)","$1$3");
+                    location = location.replace("<>", "");
 
                     String description = null;//write method to find location
                     LocalDate date = null;//write method to find date
