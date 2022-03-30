@@ -13,11 +13,11 @@ public class Main {
 
     public static void main(String[] args) {
 
-        File deckdir = new File("wikis/");
-        deckdir.mkdir();
-        File[] files = deckdir.listFiles();
+        File directory = new File("wikis/");
+        directory.mkdir();
+        File[] files = directory.listFiles();
 
-        //reads files in wiki directory and retrieves relevant information
+        //read files in wiki directory and retrieves relevant information
         for (File f : files) {
             if (f.isFile() && f.getName().endsWith(".html")) {
                 FileReader reader;
