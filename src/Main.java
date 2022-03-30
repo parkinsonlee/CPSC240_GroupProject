@@ -1,5 +1,6 @@
 package src;
 import javax.swing.*;
+import java.awt.*;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -11,6 +12,7 @@ import java.util.Scanner;
 public class Main {
     public static JFrame frame = new JFrame("Wiki Plots");
     static ArrayList<Wiki> wikis = new ArrayList<>();
+    public static int year = 2000;
 
     public static void main(String[] args) {
 
@@ -88,25 +90,44 @@ public class Main {
             }
         }
 
-        int year = 2000;
 
-        BoxLayout mainLayout = new BoxLayout(frame.getContentPane(), BoxLayout.Y_AXIS);
-        frame.getContentPane().setLayout(mainLayout);
-
-        JButton buttonB = new JButton(" < ");
-        buttonB.addActionListener(new ButtonListener2(year));
-        frame.getContentPane().add(buttonB, new ButtonListener2(year));
-
+        frame.getContentPane().setLayout(new FlowLayout());
         JLabel label = new JLabel(String.valueOf(year));
-        frame.getContentPane().add(label);
 
-        JButton buttonA = new JButton(" > ");
-        buttonA.addActionListener(new ButtonListener2A(year));
-        frame.getContentPane().add(buttonA, new ButtonListener2A(year));
+        addButtonDown("<", frame, label);
+        frame.getContentPane().add(label);
+        addButtonUp(">", frame, label);
 
         frame.pack();
         frame.setVisible(true);
 
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
+    public static void addButtonUp(String text, JFrame f, JLabel label) {
+        // add a button object
+        int year = getYear();
+        JButton button = new JButton(text);
+        button.addActionListener(new ButtonListener2(year, label));
+        f.getContentPane().add(button);
+    }
+
+    public static int getYear() {
+        return year;
+    }
+    public static void addYear(){
+        year++;
+    }
+    public static void subtractYear(){
+        year--;
+    }
+
+
+    public static void addButtonDown(String text, JFrame f, JLabel label) {
+        // add a button object
+        int year = getYear();
+        JButton button = new JButton(text);
+        button.addActionListener(new ButtonListener2A(year, label));
+        f.getContentPane().add(button);
+    }
+
 }
