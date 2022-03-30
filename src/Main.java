@@ -9,6 +9,7 @@ import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class Main {
+    public static JFrame frame = new JFrame("Wiki Plots");
     static ArrayList<Wiki> wikis = new ArrayList<>();
 
     public static void main(String[] args) {
@@ -87,16 +88,25 @@ public class Main {
             }
         }
 
-        JFrame frame = new JFrame("Wiki Plots");
+        int year = 2000;
 
-        // make the program close when the window closes
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        BoxLayout mainLayout = new BoxLayout(frame.getContentPane(), BoxLayout.Y_AXIS);
+        frame.getContentPane().setLayout(mainLayout);
 
-        // create the box layout
-        frame.getContentPane().setLayout(new BoxLayout(frame.getContentPane(), BoxLayout.Y_AXIS));
+        JButton buttonB = new JButton(" < ");
+        buttonB.addActionListener(new ButtonListener2(year));
+        frame.getContentPane().add(buttonB, new ButtonListener2(year));
 
-        // display the window.
+        JLabel label = new JLabel(String.valueOf(year));
+        frame.getContentPane().add(label);
+
+        JButton buttonA = new JButton(" > ");
+        buttonA.addActionListener(new ButtonListener2A(year));
+        frame.getContentPane().add(buttonA, new ButtonListener2A(year));
+
         frame.pack();
         frame.setVisible(true);
+
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
 }
