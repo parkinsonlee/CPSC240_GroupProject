@@ -98,6 +98,8 @@ public class Main {
         frame.getContentPane().add(label);
         addButtonUp(">", frame, label);
 
+        JLabel imgLabel = new JLabel(new ImageIcon("world-map-29700.jpg"));
+        frame.getContentPane().add(imgLabel);
         frame.pack();
         frame.setVisible(true);
 
