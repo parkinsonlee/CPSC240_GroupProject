@@ -11,8 +11,16 @@ class Wiki {
 +getDescription(): String
 }
 class Main {
+{static} - year: Int
 {static}-Wikis: Arraylist<String>
 --
 {static} +main: void
+{static} +getYear: Int
 }
+class Map {
+--
+plot(): void
+}
+Map ..> Wiki
 Main --> Wiki
+Map --> Main
