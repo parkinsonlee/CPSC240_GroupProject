@@ -1,4 +1,4 @@
-package src;
+package family.familly;
 
 import javax.swing.*;
 import java.awt.event.*;
