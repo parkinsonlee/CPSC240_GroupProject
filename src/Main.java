@@ -6,12 +6,14 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class Main {
     public static JFrame frame = new JFrame("Wiki Plots");
     static ArrayList<Wiki> wikis = new ArrayList<>();
+    static ArrayList<Location> locations = new ArrayList<>();
     public static int year = 2000;
 
     public static void main(String[] args) {
@@ -81,15 +83,44 @@ public class Main {
 
                     Wiki w = new Wiki(title, description, location, localdate);
                     wikis.add(w);
-
-                    System.out.println(title);
-                    System.out.println(location);
-                    System.out.println(date);
-                    System.out.println();
                 }
             }
         }
+        System.out.println("Succesfully loaded " + wikis.size() + " wikis");
 
+        for (File f : files) {
+            if (f.isFile() && f.getName().equals("city_database.csv")) {
+                FileReader reader;
+                try {
+                    reader = new FileReader("wikis\\city_database.csv");
+                } catch (FileNotFoundException e) {
+                    System.out.println("Unable to retrieve city database.");
+                    return;
+                }
+                Scanner in = new Scanner(reader);
+                while (in.hasNext()) {
+                    try {
+                        String line = (in.nextLine());
+                        String city = line.split(",")[0];
+                        String state = line.split(",")[1];
+                        String country = line.split(",")[2];
+                        double xcoords;
+                        double ycoords;
+                        try {
+                            xcoords = Double.parseDouble(line.split(",")[3]);
+                            ycoords = Double.parseDouble(line.split(",")[4]);
+                        } catch (Exception ignored) {
+                            break;
+                        }
+                        Location l = new Location(city, state, country, xcoords, ycoords);
+                        locations.add(l);
+                    } catch (InputMismatchException e) {
+                        in.next();
+                    }
+                }
+            }
+        }
+        System.out.println("Loaded " + locations.size() + " places");
 
         frame.getContentPane().setLayout(new FlowLayout());
         JLabel label = new JLabel(String.valueOf(year));
