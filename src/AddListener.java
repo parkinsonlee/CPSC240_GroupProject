@@ -6,9 +6,11 @@ import java.io.IOException;
 class ButtonListener implements ActionListener{
     // each button listener stores the name of the button
     private JTextField text;
+    private JFrame f;
 
-    public ButtonListener(JTextField textfield) {
+    public ButtonListener(JTextField textfield, JFrame frame) {
         text = textfield;
+        f = frame;
     }
 
     @Override
@@ -21,6 +23,7 @@ class ButtonListener implements ActionListener{
             ex.printStackTrace();
             JOptionPane.showMessageDialog(null, "Error downloading or finding URL.");
         }
+        f.dispose();
     }
 }
 class AddListener implements ActionListener {
@@ -33,7 +36,7 @@ class AddListener implements ActionListener {
         f.getContentPane().add(textfield);
 
         JButton button = new JButton("Download");
-        button.addActionListener(new ButtonListener(textfield));
+        button.addActionListener(new ButtonListener(textfield, f));
         f.getContentPane().add(button);
 
         f.pack();

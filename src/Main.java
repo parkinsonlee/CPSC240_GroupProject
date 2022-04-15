@@ -77,7 +77,7 @@ public class Main {
 
                     //get date
                     String date;
-                    LocalDate localdate = null;
+                    LocalDate localdate = LocalDate.of(0,1,1);
                     try {
                         date = infobox.substring(infobox.indexOf("class=\"infobox-label\">Date"));
                         date = date.split("<th scope=\"row\" class=\"infobox-label\">")[0];
@@ -92,7 +92,6 @@ public class Main {
                     } catch (Exception ignored) {}
 
                     Wiki w = new Wiki(title, description, locations, localdate);
-                    System.out.println(localdate);
                     wikis.add(w);
                 }
             }
@@ -140,14 +139,14 @@ public class Main {
         }
         System.out.println("Loaded " + locations.size() + " places");
 
-        frame.getContentPane().setLayout(new FlowLayout());
+        frame.getContentPane().setLayout(new BorderLayout());
         JLabel label = new JLabel(String.valueOf(year));
 
         addButtonDown("<", frame, label);
-        frame.getContentPane().add(label);
+        frame.getContentPane().add(label, BorderLayout.CENTER);
         addButtonUp(">", frame, label);
         JLabel imgLabel = new JLabel(new ImageIcon("world-map-29700.jpg"));
-        frame.getContentPane().add(imgLabel);
+        frame.getContentPane().add(imgLabel, BorderLayout.PAGE_END);
         // create the menu bar
         JMenuBar menubar = new JMenuBar();
 
@@ -160,12 +159,18 @@ public class Main {
         add.setMnemonic(KeyEvent.VK_E);
         add.setToolTipText("Add wiki to the program");
 
+        JMenuItem addlocation = new JMenuItem("Add Location", null);
+        addlocation.setMnemonic(KeyEvent.VK_E);
+        addlocation.setToolTipText("Add location");
+
         JMenuItem exit = new JMenuItem("Exit", null);
         exit.setMnemonic(KeyEvent.VK_E);
         exit.setToolTipText("Exit the program");
 
         // add the action as a new anonymous object
         add.addActionListener(new AddListener());
+        file.add(addlocation);
+        addlocation.addActionListener(new AddLocationListener());
         file.add(add);
         exit.addActionListener(new ExitListener());
         file.add(exit);
@@ -190,7 +195,7 @@ public class Main {
         int year = findYear();
         JButton button = new JButton(text);
         button.addActionListener(new ButtonListener2(year, label));
-        f.getContentPane().add(button);
+        f.getContentPane().add(button, BorderLayout.LINE_END);
     }
 
     public static int findYear() {
@@ -209,7 +214,7 @@ public class Main {
         int year = findYear();
         JButton button = new JButton(text);
         button.addActionListener(new ButtonListener2A(year, label));
-        f.getContentPane().add(button);
+        f.getContentPane().add(button, BorderLayout.LINE_START);
     }
     public static void plot(){
         for (Wiki w: wikis){
