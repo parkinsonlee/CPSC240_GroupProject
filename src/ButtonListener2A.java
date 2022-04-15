@@ -14,6 +14,7 @@ public class ButtonListener2A implements ActionListener{
     @Override
     public void actionPerformed(ActionEvent e) {
         Main.subtractYear();
-        label.setText(String.valueOf(Main.getYear()));
+        label.setText(String.valueOf(Main.findYear()));
+        Main.plot();
     }
 }

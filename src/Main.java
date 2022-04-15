@@ -63,6 +63,19 @@ public class Main {
                     location = location.replaceAll("(<)(.*?)(>)","$1$3");
                     location = location.replace("<>", "");
 
+                    ArrayList<String> locations = new ArrayList<>();
+                    int count = 0;
+                    char semi = ';';
+                    for (int i = 0; i < location.length(); i++) {
+                        if (location.charAt(i) == semi) {
+                            count++;
+                        }
+                    }
+                    for (int j = 0; j <= count; j++) {
+                        String add = location.split(";")[j];
+                        locations.add(add);
+                    }
+
                     //get date
                     String date;
                     LocalDate localdate = null;
@@ -81,7 +94,8 @@ public class Main {
                         date = null;
                     }
 
-                    Wiki w = new Wiki(title, description, location, localdate);
+                    Wiki w = new Wiki(title, description, locations, localdate);
+                    System.out.println(localdate);
                     wikis.add(w);
                 }
             }
@@ -138,13 +152,13 @@ public class Main {
     }
     public static void addButtonUp(String text, JFrame f, JLabel label) {
         // add a button object
-        int year = getYear();
+        int year = findYear();
         JButton button = new JButton(text);
         button.addActionListener(new ButtonListener2(year, label));
         f.getContentPane().add(button);
     }
 
-    public static int getYear() {
+    public static int findYear() {
         return year;
     }
     public static void addYear(){
@@ -157,10 +171,36 @@ public class Main {
 
     public static void addButtonDown(String text, JFrame f, JLabel label) {
         // add a button object
-        int year = getYear();
+        int year = findYear();
         JButton button = new JButton(text);
         button.addActionListener(new ButtonListener2A(year, label));
         f.getContentPane().add(button);
     }
-
+    public static void plot(){
+        for (Wiki w: wikis){
+            LocalDate date = w.getDate();
+            if(date.getYear() == findYear()){
+                w.list();
+                w.getXCoord();
+                w.getYCoord();
+            }
+        }
+    }
+    public static double findXCoord(String location){
+        for (Location l : locations) {
+            if (location == l.getCity()) {
+                return l.getXCoords();
+            }
+            else if (location == l.getState()) {
+                return l.getXCoords();
+            }
+            else if (location == l.getCountry()) {
+                return l.getXCoords();
+            }
+        }
+        return 0;
+    }
+    public static double findYCoord(String location){
+        return 1;
+    }
 }

@@ -15,4 +15,19 @@ public class Location {
         this.xcoords = xcoords;
         this.ycoords = ycoords;
     }
+    public String getCity(){
+        return city;
+    }
+    public String getState(){
+        return city;
+    }
+    public String getCountry(){
+        return city;
+    }
+    public double getXCoords(){
+        return xcoords;
+    }
+    public double getYCoords(){
+        return xcoords;
+    }
 }
