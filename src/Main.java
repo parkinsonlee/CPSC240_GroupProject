@@ -1,6 +1,7 @@
 package src;
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.KeyEvent;
 import java.io.*;
 import java.net.URL;
 import java.time.LocalDate;
@@ -8,6 +9,10 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.InputMismatchException;
 import java.util.Scanner;
+
+
+//Need to plot points on map
+//Need to pretty up code
 
 public class Main {
     public static JFrame frame = new JFrame("Wiki Plots");
@@ -93,7 +98,7 @@ public class Main {
             }
         }
 
-        System.out.println("Succesfully loaded " + wikis.size() + " wikis");
+        System.out.println("Successfully loaded " + wikis.size() + " wikis");
 
         for (File f : files) {
             if (f.isFile() && f.getName().equals("city_database.csv")) {
@@ -141,13 +146,44 @@ public class Main {
         addButtonDown("<", frame, label);
         frame.getContentPane().add(label);
         addButtonUp(">", frame, label);
-
         JLabel imgLabel = new JLabel(new ImageIcon("world-map-29700.jpg"));
         frame.getContentPane().add(imgLabel);
+        // create the menu bar
+        JMenuBar menubar = new JMenuBar();
+
+        // add the file menu
+        JMenu file = new JMenu("File");
+        file.setMnemonic(KeyEvent.VK_F);
+
+        // add a menu item
+        JMenuItem add = new JMenuItem("Add Wiki", null);
+        add.setMnemonic(KeyEvent.VK_E);
+        add.setToolTipText("Add wiki to the program");
+
+        JMenuItem exit = new JMenuItem("Exit", null);
+        exit.setMnemonic(KeyEvent.VK_E);
+        exit.setToolTipText("Exit the program");
+
+        // add the action as a new anonymous object
+        add.addActionListener(new AddListener());
+        file.add(add);
+        exit.addActionListener(new ExitListener());
+        file.add(exit);
+
+        // add file to the menubar
+        menubar.add(file);
+
+        // add the menubar to the window
+        frame.setJMenuBar(menubar);
+
+        // set other things
+        frame.setTitle("Simple menu");
+        frame.setSize(300, 200);
         frame.pack();
         frame.setVisible(true);
-
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+        JOptionPane.showMessageDialog(null, "Successfully loaded " + wikis.size() + " wiki(s)");
     }
     public static void addButtonUp(String text, JFrame f, JLabel label) {
         // add a button object
@@ -206,9 +242,17 @@ public class Main {
     //Need to make it so that filename is unique everytime
     public static void download(String urlString) throws IOException {//Downloads webpage for given URL
         URL url = new URL(urlString);
+        File directory = new File("wikis/");
+        File[] files = directory.listFiles();
+        int i = 0;
+        for (File f : files) {
+            if (f.isFile() && f.getName().endsWith(i+ ".html")) {
+                i++;
+            }
+        }
         try(
                 BufferedReader reader = new BufferedReader(new InputStreamReader(url.openStream()));
-                BufferedWriter writer = new BufferedWriter(new FileWriter("page.html"))
+                BufferedWriter writer = new BufferedWriter(new FileWriter("wikis//"+ i + ".html"))
         ) {
             String line;
             while ((line = reader.readLine()) != null) {

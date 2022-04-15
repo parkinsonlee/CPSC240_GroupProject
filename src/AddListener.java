@@ -1,0 +1,42 @@
+package src;
+import javax.swing.*;
+import java.awt.event.*;
+import java.io.IOException;
+
+class ButtonListener implements ActionListener{
+    // each button listener stores the name of the button
+    private JTextField text;
+
+    public ButtonListener(JTextField textfield) {
+        text = textfield;
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        String input = text.getText();
+        try {
+            Main.download(input);
+            JOptionPane.showMessageDialog(null, "Successfully retrieved URL. Please restart to load.");
+        } catch (IOException ex) {
+            ex.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Error downloading or finding URL.");
+        }
+    }
+}
+class AddListener implements ActionListener {
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        
+        JFrame f = new JFrame();
+        f.getContentPane().setLayout(new BoxLayout(f.getContentPane(), BoxLayout.Y_AXIS));
+        JTextField textfield = new JTextField();
+        f.getContentPane().add(textfield);
+
+        JButton button = new JButton("Download");
+        button.addActionListener(new ButtonListener(textfield));
+        f.getContentPane().add(button);
+
+        f.pack();
+        f.setVisible(true);
+    }
+}
