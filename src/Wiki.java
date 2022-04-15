@@ -19,20 +19,13 @@ public class Wiki {
     public LocalDate getDate(){
         return date;
     }
+    public ArrayList<String> getLocation(){
+        return location;
+    }
     public void list(){
         System.out.println();
         System.out.println(title);
         System.out.println(location);
         System.out.println(date);
-    }
-    public void getXCoord(){
-        for (String i : location) {
-            System.out.println(Main.findXCoord(i));
-        }
-    }
-    public void getYCoord(){
-        for (String i : location) {
-            System.out.println(Main.findYCoord(i));
-        };
     }
 }

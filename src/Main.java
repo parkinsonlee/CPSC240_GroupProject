@@ -100,6 +100,7 @@ public class Main {
                 }
             }
         }
+
         System.out.println("Succesfully loaded " + wikis.size() + " wikis");
 
         for (File f : files) {
@@ -118,6 +119,12 @@ public class Main {
                         String city = line.split(",")[0];
                         String state = line.split(",")[1];
                         String country = line.split(",")[2];
+                        if (!state.isBlank()) {
+                            city += ", " + state + ", " + country;
+                        }
+                        else {
+                            city += ", " + country;
+                        }
                         double xcoords;
                         double ycoords;
                         try {
@@ -126,7 +133,7 @@ public class Main {
                         } catch (Exception ignored) {
                             break;
                         }
-                        Location l = new Location(city, state, country, xcoords, ycoords);
+                        Location l = new Location(city, xcoords, ycoords);
                         locations.add(l);
                     } catch (InputMismatchException e) {
                         in.next();
@@ -181,26 +188,27 @@ public class Main {
             LocalDate date = w.getDate();
             if(date.getYear() == findYear()){
                 w.list();
-                w.getXCoord();
-                w.getYCoord();
+                for (String l : w.getLocation()){
+                    System.out.println(findXCoord(l));
+                    System.out.println(findYCoord(l));
+                }
             }
         }
     }
     public static double findXCoord(String location){
         for (Location l : locations) {
-            if (location == l.getCity()) {
-                return l.getXCoords();
-            }
-            else if (location == l.getState()) {
-                return l.getXCoords();
-            }
-            else if (location == l.getCountry()) {
+            if (location.equals(l.getCity())) {
                 return l.getXCoords();
             }
         }
         return 0;
     }
     public static double findYCoord(String location){
-        return 1;
+        for (Location l : locations) {
+            if (location.equals(l.getCity())) {
+                return l.getYCoords();
+            }
+        }
+        return 0;
     }
 }
