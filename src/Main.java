@@ -1,9 +1,8 @@
 package src;
 import javax.swing.*;
 import java.awt.*;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
+import java.io.*;
+import java.net.URL;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -17,7 +16,6 @@ public class Main {
     public static int year = 2000;
 
     public static void main(String[] args) {
-
         File directory = new File("wikis/");
         directory.mkdir();
         File[] files = directory.listFiles();
@@ -33,11 +31,11 @@ public class Main {
                     return;
                 }
                 Scanner in = new Scanner(reader);
-                String content = "";
+                StringBuilder content = new StringBuilder();
                 while (in.hasNext()) {
                     try {
                         while (in.hasNext()) {
-                            content += (in.nextLine());
+                            content.append(in.nextLine());
                         }
                     } catch (InputMismatchException e) {
                         in.next();
@@ -63,7 +61,6 @@ public class Main {
                     location = location.replaceAll("(<)(.*?)(>)","$1$3");
                     location = location.replace("<>", "");
 
-                    ArrayList<String> locations = new ArrayList<>();
                     int count = 0;
                     char semi = ';';
                     for (int i = 0; i < location.length(); i++) {
@@ -71,10 +68,7 @@ public class Main {
                             count++;
                         }
                     }
-                    for (int j = 0; j <= count; j++) {
-                        String add = location.split(";")[j];
-                        locations.add(add);
-                    }
+                    ArrayList<String> locations = new ArrayList<>(Arrays.asList(location.split(";")).subList(0, count + 1));
 
                     //get date
                     String date;
@@ -90,9 +84,7 @@ public class Main {
                         date = date.split("\\(")[1];
                         date = date.split("\\)")[0];
                         localdate = LocalDate.parse(date);
-                    } catch (Exception e) {
-                        date = null;
-                    }
+                    } catch (Exception ignored) {}
 
                     Wiki w = new Wiki(title, description, locations, localdate);
                     System.out.println(localdate);
@@ -210,5 +202,19 @@ public class Main {
             }
         }
         return 0;
+    }
+    //Need to make it so that filename is unique everytime
+    public static void download(String urlString) throws IOException {//Downloads webpage for given URL
+        URL url = new URL(urlString);
+        try(
+                BufferedReader reader = new BufferedReader(new InputStreamReader(url.openStream()));
+                BufferedWriter writer = new BufferedWriter(new FileWriter("page.html"))
+        ) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                writer.write(line);
+            }
+            System.out.println("Page downloaded.");
+        }
     }
 }
