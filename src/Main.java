@@ -96,9 +96,9 @@ public class Main {
                 }
             }
         }
-
         System.out.println("Successfully loaded " + wikis.size() + " wikis");
 
+        //loads city_database int arraylist for use
         for (File f : files) {
             if (f.isFile() && f.getName().equals("city_database.csv")) {
                 FileReader reader;
@@ -140,83 +140,80 @@ public class Main {
         System.out.println("Loaded " + locations.size() + " places");
 
         frame.getContentPane().setLayout(new BorderLayout());
+        //adds year increment buttons and year
         JLabel label = new JLabel(String.valueOf(year));
-
         addButtonDown("<", frame, label);
         frame.getContentPane().add(label, BorderLayout.CENTER);
         addButtonUp(">", frame, label);
+
+        // add map to gui
         JLabel imgLabel = new JLabel(new ImageIcon("world-map-29700.jpg"));
         frame.getContentPane().add(imgLabel, BorderLayout.PAGE_END);
+
         // create the menu bar
         JMenuBar menubar = new JMenuBar();
 
-        // add the file menu
+        // add the File -> menu
         JMenu file = new JMenu("File");
         file.setMnemonic(KeyEvent.VK_F);
 
-        // add a menu item
+        // add wiki button in File ->
         JMenuItem add = new JMenuItem("Add Wiki", null);
         add.setMnemonic(KeyEvent.VK_E);
         add.setToolTipText("Add wiki to the program");
 
+        // add location button in File ->
         JMenuItem addlocation = new JMenuItem("Add Location", null);
         addlocation.setMnemonic(KeyEvent.VK_E);
         addlocation.setToolTipText("Add location");
 
+        // exit button in File ->
         JMenuItem exit = new JMenuItem("Exit", null);
         exit.setMnemonic(KeyEvent.VK_E);
         exit.setToolTipText("Exit the program");
 
-        // add the action as a new anonymous object
+        // add the action as a new object
         add.addActionListener(new AddListener());
         file.add(addlocation);
         addlocation.addActionListener(new AddLocationListener());
         file.add(add);
         exit.addActionListener(new ExitListener());
         file.add(exit);
-
-        // add file to the menubar
         menubar.add(file);
-
-        // add the menubar to the window
         frame.setJMenuBar(menubar);
-
-        // set other things
         frame.setTitle("Simple menu");
         frame.setSize(300, 200);
+
         frame.pack();
         frame.setVisible(true);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         JOptionPane.showMessageDialog(null, "Successfully loaded " + wikis.size() + " wiki(s)");
     }
-    public static void addButtonUp(String text, JFrame f, JLabel label) {
-        // add a button object
-        int year = findYear();
-        JButton button = new JButton(text);
-        button.addActionListener(new ButtonListener2(year, label));
-        f.getContentPane().add(button, BorderLayout.LINE_END);
-    }
-
-    public static int findYear() {
+    public static int findYear() {//returns year. findYear instead of getYear due to getYear already existing in LocalDate
         return year;
     }
     public static void addYear(){
         year++;
-    }
+    }//adds 1 to year
     public static void subtractYear(){
         year--;
+    }//subtracts 1 from year
+    public static void addButtonUp(String text, JFrame f, JLabel label) {// adds button to incrament year by +1
+        // add a button object
+        JButton button = new JButton(text);
+        button.addActionListener(new ButtonListener2(findYear(), label));
+        f.getContentPane().add(button, BorderLayout.LINE_END);
     }
 
 
-    public static void addButtonDown(String text, JFrame f, JLabel label) {
+    public static void addButtonDown(String text, JFrame f, JLabel label) {//adds button to incrament year by -1
         // add a button object
-        int year = findYear();
         JButton button = new JButton(text);
-        button.addActionListener(new ButtonListener2A(year, label));
+        button.addActionListener(new ButtonListener2A(findYear(), label));
         f.getContentPane().add(button, BorderLayout.LINE_START);
     }
-    public static void plot(){
+    public static void plot(){//plots out wikis for the given year
         for (Wiki w: wikis){
             LocalDate date = w.getDate();
             if(date.getYear() == findYear()){
@@ -228,7 +225,7 @@ public class Main {
             }
         }
     }
-    public static double findXCoord(String location){
+    public static double findXCoord(String location){//gets the x coord for the location
         for (Location l : locations) {
             if (location.equals(l.getCity())) {
                 return l.getXCoords();
@@ -236,7 +233,7 @@ public class Main {
         }
         return 0;
     }
-    public static double findYCoord(String location){
+    public static double findYCoord(String location){//gets the y coord for the location
         for (Location l : locations) {
             if (location.equals(l.getCity())) {
                 return l.getYCoords();

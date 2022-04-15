@@ -1,0 +1,46 @@
+skinparam classAttributeIconSize 0
+class Wiki {
+-title: String
+-date: LocalDate
+-location: String
+-description: String
+--
++getTitle(): String
++getDate(): Localdate
++getLocation(): String
++getDescription(): String
+}
+class Main {
+{static} - year: Int
+{static}-Wikis: Arraylist<String>
+--
+{static} +main: void
+{static} +getYear: int
+{static} +addYear: void
+{static} +subtractYear: void
+{static} +addButtonUp: void
+{static} +addButtonDown: void
+}
+class Map {
+--
++plot(): void
+}
+class ButtonListenerA {
+-year: int
+-label: Jlabel
+--
++ButtonListenerA(input: int, label: JLabel)
+actionPerformed(ActionEvent e): void
+}
+class ButtonListenerB {
+-year: int
+-label: Jlabel
+--
++ButtonListenerB(input: int, label: JLabel)
++actionPerformed(ActionEvent e): void
+}
+
+Main --> Wiki
+Map --> Main
+ButtonListenerA -> Main
+ButtonListenerB -> Main

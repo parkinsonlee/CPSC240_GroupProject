@@ -5,8 +5,8 @@ import java.io.IOException;
 
 class ButtonListener implements ActionListener{
     // each button listener stores the name of the button
-    private JTextField text;
-    private JFrame f;
+    private final JTextField text;
+    private final JFrame f;
 
     public ButtonListener(JTextField textfield, JFrame frame) {
         text = textfield;

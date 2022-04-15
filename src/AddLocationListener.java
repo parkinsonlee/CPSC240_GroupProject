@@ -6,12 +6,12 @@ import java.io.IOException;
 
 class ButtonListenerA implements ActionListener{
     // each button listener stores the name of the button
-    private JTextField y;
-    private JTextField x;
-    private JTextField city1;
-    private JTextField state1;
-    private JTextField country1;
-    private JFrame frame;
+    private final JTextField y;
+    private final JTextField x;
+    private final JTextField city1;
+    private final JTextField state1;
+    private final JTextField country1;
+    private final JFrame frame;
 
     public ButtonListenerA(JTextField ycoord, JTextField xcoord, JTextField city, JTextField state, JTextField country, JFrame f) {
         y = ycoord;
