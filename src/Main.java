@@ -13,6 +13,7 @@ import java.util.Scanner;
 
 //Need to plot points on map
 //Need to pretty up code
+//Need to accurately print to output file of wiki
 
 public class Main {
     public static JFrame frame = new JFrame("Wiki Plots");
@@ -158,27 +159,34 @@ public class Main {
         file.setMnemonic(KeyEvent.VK_F);
 
         // add wiki button in File ->
+        JMenuItem create = new JMenuItem("Create Wiki", null);
+        create.setToolTipText("Create wiki and add it to the program");
+
+        // add wiki button in File ->
         JMenuItem add = new JMenuItem("Add Wiki", null);
-        add.setMnemonic(KeyEvent.VK_E);
         add.setToolTipText("Add wiki to the program");
 
         // add location button in File ->
         JMenuItem addlocation = new JMenuItem("Add Location", null);
-        addlocation.setMnemonic(KeyEvent.VK_E);
         addlocation.setToolTipText("Add location");
 
         // exit button in File ->
         JMenuItem exit = new JMenuItem("Exit", null);
-        exit.setMnemonic(KeyEvent.VK_E);
         exit.setToolTipText("Exit the program");
 
         // add the action as a new object
-        add.addActionListener(new AddListener());
-        file.add(addlocation);
+        create.addActionListener(new CreateListener());
+        file.add(create);
+
         addlocation.addActionListener(new AddLocationListener());
+        file.add(addlocation);
+
+        add.addActionListener(new AddListener());
         file.add(add);
+
         exit.addActionListener(new ExitListener());
         file.add(exit);
+
         menubar.add(file);
         frame.setJMenuBar(menubar);
         frame.setTitle("Simple menu");
