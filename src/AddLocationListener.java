@@ -1,5 +1,6 @@
 package src;
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.*;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -52,18 +53,25 @@ class AddLocationListener implements ActionListener {
         JTextField country = new JTextField("Country");
         JTextField xcoord = new JTextField("Latitude");
         JTextField ycoord = new JTextField("Longitude");
+        city.setForeground(Color.GRAY);
+        state.setForeground(Color.GRAY);
+        country.setForeground(Color.GRAY);
+        xcoord.setForeground(Color.GRAY);
+        ycoord.setForeground(Color.GRAY);
 
 
        city.addFocusListener(new FocusListener() {
             public void focusGained(FocusEvent e) {
                 if (city.getText().equals("City")) {
                     city.setText("");
+                    city.setForeground(Color.black);
                 }
             }
 
             public void focusLost(FocusEvent e) {
                 if (city.getText().equals("")) {
                     city.setText("City");
+                    city.setForeground(Color.GRAY);
                 }
             }
         });
@@ -71,12 +79,14 @@ class AddLocationListener implements ActionListener {
             public void focusGained(FocusEvent e) {
                 if (state.getText().equals("State")) {
                     state.setText("");
+                    state.setForeground(Color.black);
                 }
             }
 
             public void focusLost(FocusEvent e) {
                 if (state.getText().equals("")) {
                     state.setText("State");
+                    state.setForeground(Color.GRAY);
                 }
             }
         });
@@ -84,12 +94,14 @@ class AddLocationListener implements ActionListener {
             public void focusGained(FocusEvent e) {
                 if (country.getText().equals("Country")) {
                     country.setText("");
+                    country.setForeground(Color.black);
                 }
             }
 
             public void focusLost(FocusEvent e) {
                 if (country.getText().equals("")) {
                     country.setText("Country");
+                    country.setForeground(Color.GRAY);
                 }
             }
         });
@@ -97,12 +109,14 @@ class AddLocationListener implements ActionListener {
             public void focusGained(FocusEvent e) {
                 if (xcoord.getText().equals("Latitude")) {
                     xcoord.setText("");
+                    xcoord.setForeground(Color.black);
                 }
             }
 
             public void focusLost(FocusEvent e) {
                 if (xcoord.getText().equals("")) {
                     xcoord.setText("Latitude");
+                    xcoord.setForeground(Color.GRAY);
                 }
             }
         });
@@ -110,12 +124,14 @@ class AddLocationListener implements ActionListener {
             public void focusGained(FocusEvent e) {
                 if (ycoord.getText().equals("Longitude")) {
                     ycoord.setText("");
+                    ycoord.setForeground(Color.black);
                 }
             }
 
             public void focusLost(FocusEvent e) {
                 if (ycoord.getText().equals("")) {
                     ycoord.setText("Longitude");
+                    ycoord.setForeground(Color.GRAY);
                 }
             }
         });
