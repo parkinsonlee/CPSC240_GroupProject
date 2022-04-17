@@ -1,8 +1,11 @@
 package src;
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyEvent;
+import java.awt.image.BufferedImage;
 import java.io.*;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -20,7 +23,7 @@ public class Main {
     static ArrayList<Location> locations = new ArrayList<>();
     public static int year = 2000;
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         File directory = new File("wikis/");
         directory.mkdir();
         File[] files = directory.listFiles();
@@ -147,8 +150,27 @@ public class Main {
         addButtonUp(">", frame, label);
 
         // add map to gui
-        JLabel imgLabel = new JLabel(new ImageIcon("world-map-29700.jpg"));
-        frame.getContentPane().add(imgLabel, BorderLayout.PAGE_END);
+        //JLabel imgLabel = new JLabel(new ImageIcon("world-map-29700.jpg"));
+        URL url = new URL("https://qph.cf2.quoracdn.net/main-qimg-a2260fbd2f1b3bd874a3a39a1ff56010-lq");
+        BufferedImage im = ImageIO.read(url);
+        URL url2 = new URL("https://www.freepnglogos.com/uploads/pin-png/flat-design-map-pin-transparent-png-stickpng-31.png");
+
+        BufferedImage im2 = ImageIO.read(url2);
+        Graphics2D g = im.createGraphics();
+        g.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.4f));
+
+
+
+        
+        g.drawImage(im2, 5, 5, null);
+        g.dispose();
+
+        frame.getContentPane().add(new JLabel(new ImageIcon(im)), BorderLayout.SOUTH);
+
+        JButton b=new JButton("MY BIG BUTTON");
+
+
+
 
         // create the menu bar
         JMenuBar menubar = new JMenuBar();
