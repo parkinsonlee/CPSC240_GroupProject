@@ -17,6 +17,8 @@ import java.util.Scanner;
 //Need to plot points on map
 //Need to pretty up code
 //Need to accurately print to output file of wiki
+//Need to add more wikis
+//Need to test
 
 public class Main {
     public static JFrame frame = new JFrame("Wiki Plots");
@@ -150,28 +152,34 @@ public class Main {
         frame.getContentPane().add(label, BorderLayout.CENTER);
         addButtonUp(">", frame, label);
 
-        // add map to gui
-        //JLabel imgLabel = new JLabel(new ImageIcon("world-map-29700.jpg"));
-        URL url = new URL("https://qph.cf2.quoracdn.net/main-qimg-a2260fbd2f1b3bd874a3a39a1ff56010-lq");
-        BufferedImage im = ImageIO.read(url);
-        URL url2 = new URL("https://www.freepnglogos.com/uploads/pin-png/flat-design-map-pin-transparent-png-stickpng-31.png");
 
-        BufferedImage im2 = ImageIO.read(url2);
-        Graphics2D g = im.createGraphics();
+        BufferedImage map = null;
+        try {
+            map = ImageIO.read(new File("map.jpg"));
+        } catch (IOException ignored) {
+        }
+        BufferedImage dot = null;
+        try {
+            dot = ImageIO.read(new File("dot.png"));
+        } catch (IOException ignored) {
+        }
+
+
+        //BufferedImage map = ImageIO.read(new File("dot.jpg"));
+        Graphics2D g = map.createGraphics();
         g.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.4f));
 
 
 
-        
-        g.drawImage(im2, 5, 5, null);
+
+        double x1 = ((-74.0+180.0)*1391/360.0)-16;
+        double y1 = 800-((40.0+90.0)*800/180.0)-16;
+        int x = (int)x1;
+        int y = (int)y1;
+        g.drawImage(dot, x, y, null);
         g.dispose();
 
-        frame.getContentPane().add(new JLabel(new ImageIcon(im)), BorderLayout.SOUTH);
-
-        JButton b=new JButton("MY BIG BUTTON");
-
-
-
+        frame.getContentPane().add(new JLabel(new ImageIcon(map)), BorderLayout.SOUTH);
 
         // create the menu bar
         JMenuBar menubar = new JMenuBar();
