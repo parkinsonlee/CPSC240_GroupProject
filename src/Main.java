@@ -105,7 +105,7 @@ public class Main {
         }
         System.out.println("Successfully loaded " + wikis.size() + " wikis");
 
-        //loads city_database int arraylist for use
+        //loads city_database to arraylist for use
         for (File f : files) {
             if (f.isFile() && f.getName().equals("city_database.csv")) {
                 FileReader reader;
@@ -227,7 +227,7 @@ public class Main {
         f.getContentPane().add(button, BorderLayout.LINE_START);
     }
     public static void plot(){//plots out wikis for the given year
-       // frame.getContentPane().add(mapLabel, BorderLayout.SOUTH);
+        // frame.getContentPane().add(mapLabel, BorderLayout.SOUTH);
         // frame.remove(mapLabel);
         frame.getContentPane().remove(mapLabel);
         BufferedImage map = null;
@@ -254,10 +254,10 @@ public class Main {
 
                     BufferedImage dot = null;
                     try {
-                            dot = ImageIO.read(new File("dot.png"));
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
+                        dot = ImageIO.read(new File("dot.png"));
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
 
                     double x1 = ((findYCoord(l)+180.0)*1391/360.0)-10;
                     double y1 = 800-((findXCoord(l)+90.0)*800/180.0)-10;
