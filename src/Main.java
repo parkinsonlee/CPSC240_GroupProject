@@ -13,6 +13,8 @@ import java.util.Arrays;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
+import static java.awt.Color.RED;
+
 
 //Need to plot points on map
 //Need to pretty up code
@@ -25,6 +27,15 @@ public class Main {
     static ArrayList<Wiki> wikis = new ArrayList<>();
     static ArrayList<Location> locations = new ArrayList<>();
     public static int year = 2000;
+    static BufferedImage map;
+    static {
+        try {
+            map = ImageIO.read(new File("map.jpg"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    static JLabel mapLabel = new JLabel(new ImageIcon(map));
 
     public static void main(String[] args) throws IOException {
         File directory = new File("wikis/");
@@ -153,33 +164,7 @@ public class Main {
         addButtonUp(">", frame, label);
 
 
-        BufferedImage map = null;
-        try {
-            map = ImageIO.read(new File("map.jpg"));
-        } catch (IOException ignored) {
-        }
-        BufferedImage dot = null;
-        try {
-            dot = ImageIO.read(new File("dot.png"));
-        } catch (IOException ignored) {
-        }
-
-
-        //BufferedImage map = ImageIO.read(new File("dot.jpg"));
-        Graphics2D g = map.createGraphics();
-        g.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.4f));
-
-
-
-
-        double x1 = ((-74.0+180.0)*1391/360.0)-16;
-        double y1 = 800-((40.0+90.0)*800/180.0)-16;
-        int x = (int)x1;
-        int y = (int)y1;
-        g.drawImage(dot, x, y, null);
-        g.dispose();
-
-        frame.getContentPane().add(new JLabel(new ImageIcon(map)), BorderLayout.SOUTH);
+        frame.getContentPane().add(mapLabel, BorderLayout.SOUTH);
 
         // create the menu bar
         JMenuBar menubar = new JMenuBar();
@@ -252,16 +237,51 @@ public class Main {
         f.getContentPane().add(button, BorderLayout.LINE_START);
     }
     public static void plot(){//plots out wikis for the given year
+       // frame.getContentPane().add(mapLabel, BorderLayout.SOUTH);
+        // frame.remove(mapLabel);
+        frame.getContentPane().remove(mapLabel);
+        BufferedImage map = null;
+        try {
+            map = ImageIO.read(new File("map.jpg"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        Graphics2D g = map.createGraphics();
+        mapLabel = new JLabel(new ImageIcon(map));
+        frame.getContentPane().add(mapLabel, BorderLayout.SOUTH);
         for (Wiki w: wikis){
             LocalDate date = w.getDate();
             if(date.getYear() == findYear()){
                 w.list();
                 for (String l : w.getLocation()){
+                    if (findXCoord(l) ==0 && findYCoord(l) == 0) {
+                        continue;
+                    }
                     System.out.println(findXCoord(l));
                     System.out.println(findYCoord(l));
+
+                    g.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.4f));
+
+                    BufferedImage dot = null;
+                    try {
+                            dot = ImageIO.read(new File("dot.png"));
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+
+                    double x1 = ((findYCoord(l)+180.0)*1391/360.0)-10;
+                    double y1 = 800-((findXCoord(l)+90.0)*800/180.0)-10;
+                    int x = (int)x1;
+                    int y = (int)y1;
+                    g.drawImage(dot, x, y, null);
+                    //g.setColor(Color.RED);
+                    //g.fillOval(x,y,20,20);
                 }
             }
         }
+        mapLabel.revalidate();
+        mapLabel.repaint();
+        g.dispose();
     }
     public static double findXCoord(String location){//gets the x coord for the location
         for (Location l : locations) {
