@@ -40,7 +40,7 @@ class ButtonListenerB implements ActionListener{
             try {
                 FileWriter myWriter = new FileWriter("wikis/" + title + ".html");
 
-                //myWriter.write("<title>" + title + "</title>" + "," + "<table class=\"infobox vevent\"" + description + "," + location + "," + date);
+                myWriter.write("<title>" + title + " - Wikipedia</title>" + "<table class=\"infobox vevent\"" + "class=\"infobox-label\">Date" + date + "<th scope=\"row\" class=\"infobox-label\">"  + "</th><td class=\"infobox-data location\">"  + location  + "</tbody></table>");
 
                 myWriter.close();
                 JOptionPane.showMessageDialog(null, "Successfully added location. Please restart to load.");

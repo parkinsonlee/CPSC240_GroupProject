@@ -5,22 +5,12 @@ import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
 import java.io.*;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.InputMismatchException;
 import java.util.Scanner;
-
-import static java.awt.Color.RED;
-
-
-//Need to plot points on map
-//Need to pretty up code
-//Need to accurately print to output file of wiki
-//Need to add more wikis
-//Need to test
 
 public class Main {
     public static JFrame frame = new JFrame("Wiki Plots");
@@ -93,7 +83,7 @@ public class Main {
                     ArrayList<String> locations = new ArrayList<>(Arrays.asList(location.split(";")).subList(0, count + 1));
 
                     //get date
-                    String date;
+                    String date = null;
                     LocalDate localdate = LocalDate.of(0,1,1);
                     try {
                         date = infobox.substring(infobox.indexOf("class=\"infobox-label\">Date"));
@@ -105,8 +95,8 @@ public class Main {
                         date = date.replace("<>", "");
                         date = date.split("\\(")[1];
                         date = date.split("\\)")[0];
-                        localdate = LocalDate.parse(date);
                     } catch (Exception ignored) {}
+                    localdate = LocalDate.parse(date);
 
                     Wiki w = new Wiki(title, description, locations, localdate);
                     wikis.add(w);
@@ -155,7 +145,7 @@ public class Main {
             }
         }
         System.out.println("Loaded " + locations.size() + " places");
-
+        //Start creating GUI
         frame.getContentPane().setLayout(new BorderLayout());
         //adds year increment buttons and year
         JLabel label = new JLabel(String.valueOf(year));
@@ -274,8 +264,6 @@ public class Main {
                     int x = (int)x1;
                     int y = (int)y1;
                     g.drawImage(dot, x, y, null);
-                    //g.setColor(Color.RED);
-                    //g.fillOval(x,y,20,20);
                 }
             }
         }
